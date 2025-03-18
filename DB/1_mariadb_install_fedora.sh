@@ -3,7 +3,9 @@
 sudo dnf install mariadb-server         # DB installation on server.
 
 sudo systemctl start mariadb            # Run service.
+
 sudo systemctl enable mariadb           # Enable service.
+
 systemctl daemon-reload                 # Reload daemon.
 
 sudo mysql_secure_installation          #Run secure installation of DB.

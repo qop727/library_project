@@ -6,17 +6,17 @@ from flask_cors import CORS
 import os
 
 app = Flask(__name__)
-CORS(app)                                                      # Enable CORS so FE can call APIs.
+CORS(app)                                                       # Enable CORS so FE can call APIs.
 
 # MySQL connection configuration.
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://qop:Pwd1234@localhost/books_db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False           # Turning off log for modifications.
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False            # Turning off log for modifications.
 
 db = SQLAlchemy(app)
 
 # Model for books.
 class Book(db.Model):
-    id = db.Column(db.Integer(5), primary_key=True)             # Setting DB column for ID of book (max 5 characters).
+    id = db.Column(db.Integer, primary_key=True)                # Setting DB column for ID of book.
     author = db.Column(db.String(100), nullable=False)          # Setting DB column for author of book (max 100 characters).
     title = db.Column(db.String(200), nullable=False)           # Setting DB column for title of book (max 200 characters).
 
@@ -50,6 +50,7 @@ def search_books():
     return jsonify(results)
 
 if __name__ == '__main__':
-    # Pokud databáze ještě nebyla inicializována, odkomentujte následující řádek a spusťte jednou:
-    db.create_all()
+    #with app.app_context():
+        # Use this only once the DB was not yet incialized (first start only):
+        #db.create_all()                                             # Creates DB table.
     app.run(host='0.0.0.0', port=5000)
