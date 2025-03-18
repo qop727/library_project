@@ -1,25 +1,26 @@
+# BE Python Flask for library project.
+
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 import os
 
 app = Flask(__name__)
-CORS(app)  # Povolit CORS, aby frontend mohl volat API
+CORS(app)                                                      # Enable CORS so FE can call APIs.
 
-# Konfigurace připojení k MySQL
-# Upravte 'username', 'password' a případně 'localhost' dle potřeby.
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://username:password@localhost/books_db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+# MySQL connection configuration.
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://qop:Pwd1234@localhost/books_db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False           # Turning off log for modifications.
 
 db = SQLAlchemy(app)
 
-# Model pro knihy
+# Model for books.
 class Book(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    author = db.Column(db.String(100), nullable=False)
-    title = db.Column(db.String(200), nullable=False)
+    id = db.Column(db.Integer(5), primary_key=True)             # Setting DB column for ID of book (max 5 characters).
+    author = db.Column(db.String(100), nullable=False)          # Setting DB column for author of book (max 100 characters).
+    title = db.Column(db.String(200), nullable=False)           # Setting DB column for title of book (max 200 characters).
 
-# Endpoint pro uložení knihy
+# Endpoint for book saving.
 @app.route('/api/book', methods=['POST'])
 def add_book():
     data = request.get_json()
@@ -32,7 +33,7 @@ def add_book():
     db.session.commit()
     return jsonify({'message': 'Book added successfully'}), 201
 
-# Endpoint pro vyhledání knih podle klíčového slova
+# Endpoint for book search using key word.
 @app.route('/api/search', methods=['GET'])
 def search_books():
     keyword = request.args.get('keyword', '')
@@ -50,5 +51,5 @@ def search_books():
 
 if __name__ == '__main__':
     # Pokud databáze ještě nebyla inicializována, odkomentujte následující řádek a spusťte jednou:
-    # db.create_all()
+    db.create_all()
     app.run(host='0.0.0.0', port=5000)

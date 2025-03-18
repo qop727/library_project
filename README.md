@@ -14,4 +14,9 @@ Vytvorime webovou stranku:
 - na strance bude dalsi tlacitko pro hledani v databazi knih pomoci klicovych slov
 - seznam vyhledavanych knih v databazi se zobrazi ve spodni casti stranky
 
-- muj cil je naucit se a pochopit jak technicky funguje system za vyvojem webovych aplikaci
+Muj cil:
+- je naucit se a pochopit jak technicky funguje system za vyvojem webovych aplikaci
+- ucit se s DB
+- ucit se rozumet HTML, CSS, JS, TS
+- ucit se s PY
+- ucit se s Linux Fedora
