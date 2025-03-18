@@ -20,3 +20,9 @@ Muj cil:
 - ucit se rozumet HTML, CSS, JS, TS
 - ucit se s PY
 - ucit se s Linux Fedora
+
+Shrnutí celého systému:
+Backend: Flask API, které přijímá požadavky pro uložení knihy (POST /api/book) a vyhledávání (GET /api/search). Data jsou ukládána do databáze MySQL.
+Databáze: MySQL databáze books_db s tabulkou pro knihy.
+Frontend: Aplikace ve Vue.js (psaná v TypeScriptu), která obsahuje formulář pro přidání knihy, vyhledávací pole a seznam výsledků. Frontend komunikuje s API pomocí axios.
+Serverové prostředí: Oba stroje (klient i server) jsou v rámci stejné interní sítě. Backend spustíte na Fedora serveru a frontend může běžet na vývojovém stroji.
