@@ -1,8 +1,8 @@
 # BE Python Flask for library project.
 
-from flask import Flask, request, jsonify
-from flask_sqlalchemy import SQLAlchemy
-from flask_cors import CORS
+from flask import Flask, request, jsonify # type: ignore
+from flask_sqlalchemy import SQLAlchemy # type: ignore
+from flask_cors import CORS # type: ignore
 import os
 
 app = Flask(__name__)
