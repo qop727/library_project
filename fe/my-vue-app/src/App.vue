@@ -19,6 +19,13 @@
       <button @click="searchBooks">Search</button>
     </div>
 
+    <!-- Form for searching the book. -->
+    <div>
+      <h2>Delete Books by ID</h2>
+      <input v-model="id" placeholder="Enter ID" />
+      <button @click="deleteBooks">Delete</button>
+    </div>
+
     <!-- Status messages. -->
     <div>
       <p :style="{ color: statusColor }">{{ statusMessage }}</p>
@@ -52,6 +59,7 @@ export default defineComponent({
     const author = ref("");
     const title = ref("");
     const keyword = ref("");
+    const id = ref("");
     const books = ref<Book[]>([]);
     const statusMessage = ref("");
     const statusColor = ref("black");
@@ -92,15 +100,33 @@ export default defineComponent({
       }
     };
 
+    const deleteBooks = async () => {
+      try {
+        const response = await axios.delete(
+          "http://192.168.0.234:5000/api/delete",
+          {
+            params: { id: id.value },
+          }
+        );
+        statusMessage.value = "Succesfully deleted";
+        statusColor.value = "green";
+      } catch (error) {
+        statusMessage.value = "Error deleting books";
+        statusColor.value = "red";
+      }
+    };
+
     return {
       author,
       title,
       keyword,
+      id,
       books,
       statusMessage,
       statusColor,
       addBook,
       searchBooks,
+      deleteBooks,
     };
   },
 });
@@ -111,10 +137,11 @@ export default defineComponent({
   max-width: 1024px;
   margin: 0 auto;
   padding: 150px;
-  font-family: Lexend, sans-serif, color=white;
+  font-family: Lexend, sans-serif;
   background-image: url("backgroung.png");
   background-position: center;
   background-repeat: no-repeat;
+  color: rgb(0, 137, 161);
 }
 input {
   margin: 5px;
