@@ -3,7 +3,6 @@
 from flask import Flask, request, jsonify # type: ignore
 from flask_sqlalchemy import SQLAlchemy # type: ignore
 from flask_cors import CORS # type: ignore
-import os
 
 app = Flask(__name__)
 CORS(app)                                                       # Enable CORS so FE can call APIs.
@@ -52,5 +51,5 @@ def search_books():
 if __name__ == '__main__':
     #with app.app_context():
         # Use this only once the DB was not yet incialized (first start only):
-        #db.create_all()                                             # Creates DB table.
+        #db.create_all()                                        # Creates DB table.
     app.run(host='0.0.0.0', port=5000)

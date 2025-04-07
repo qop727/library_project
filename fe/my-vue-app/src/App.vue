@@ -40,21 +40,27 @@
 import { defineComponent, ref } from "vue";
 import axios from "axios";
 
+interface Book {
+  id: number;
+  author: string;
+  title: string;
+}
+
 export default defineComponent({
   name: "App",
   setup() {
     const author = ref("");
     const title = ref("");
     const keyword = ref("");
-    const books = ref<any[]>([]);
+    const books = ref<Book[]>([]);
     const statusMessage = ref("");
 
     const addBook = async () => {
       try {
-        const response = await axios.post(
-          "http://192.168.0.234:5000/api/book",
-          { author: author.value, title: title.value }
-        );
+        const response = await axios.post("http://localhost:5000/api/book", {
+          author: author.value,
+          title: title.value,
+        });
         statusMessage.value = response.data.message;
         author.value = "";
         title.value = "";
@@ -65,10 +71,9 @@ export default defineComponent({
 
     const searchBooks = async () => {
       try {
-        const response = await axios.get(
-          "http://192.168.0.234:5000/api/search",
-          { params: { keyword: keyword.value } }
-        );
+        const response = await axios.get("http://localhost:5000/api/search", {
+          params: { keyword: keyword.value },
+        });
         books.value = response.data;
         statusMessage.value = "Search completed";
       } catch (error) {
@@ -94,7 +99,12 @@ export default defineComponent({
   max-width: 800px;
   margin: 0 auto;
   padding: 20px;
-  font-family: Arial, sans-serif;
+  font-family: Lexend, sans-serif;
+  background-image: url("backgroung.png");
+  background-size: 40%;
+  background-blend-mode: difference;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 input {
   margin: 5px;
