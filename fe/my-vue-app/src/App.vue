@@ -102,12 +102,9 @@ export default defineComponent({
 
     const deleteBooks = async () => {
       try {
-        const response = await axios.delete(
-          "http://192.168.0.234:5000/api/delete",
-          {
-            params: { id: id.value },
-          }
-        );
+        await axios.delete("http://192.168.0.234:5000/api/delete", {
+          params: { id: id.value },
+        });
         statusMessage.value = "Succesfully deleted";
         statusColor.value = "green";
       } catch (error) {
